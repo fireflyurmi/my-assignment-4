@@ -10,9 +10,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="bg-[#f8fafc]">
+    <!-- header part -->
+    <header class="max-w-[1200px] mx-auto px-4 border-b-2 border-gray-200 space-y-7">
+        <h2 class="text-3xl font-bold pt-7 text-[#002c5c]">Job Application Tracker</h2>
+        
+        <div class="top-cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-5">
+            <div class="total-card bg-white p-5 rounded-2xl transition duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer">
+                <p class="text-lg">Total</p>
+                <h3 id="total-count" class="font-bold text-3xl">0</h3>
+            </div>
+            <div class="interview-card bg-white p-5 rounded-2xl transition duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer">
+                <p class="text-lg">Interview</p>
+                <h3 id="interview-count" class="font-bold text-3xl text-green-600">0</h3>
+            </div>
+            <div class="reject-card bg-white p-5 rounded-2xl transition duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer">
+                <p class="text-lg">Rejected</p>
+                <h3 id="reject-count" class="font-bold text-3xl text-red-600">0</h3>
+            </div>
+        </div>
+
+    </header>
+
+    
     
 
 
-       
+    <script src="./script.js"></script>     
 </body>
 </html>

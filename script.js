@@ -67,10 +67,31 @@ container.addEventListener('click', function(e){
     }
     
 // for delete
-    if(e.target.closest("#delete-job")){
-        jobs = jobs.filter(j => j.id !== id);
-        card.remove();
-        updateUI();
+    if (e.target.closest("#delete-job")) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This job will be permanently deleted!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#dc2626",
+            cancelButtonColor: "#6b7280",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                jobs = jobs.filter(j => j.id !== id);
+                card.remove();
+                updateUI();
+
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "The job has been removed.",
+                    icon: "success",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            }
+        });
     }
 });
 // main update function

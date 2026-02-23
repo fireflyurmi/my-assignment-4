@@ -123,10 +123,13 @@ function handleEmptyState(visible){
     if(visible === 0){
         const div = document.createElement("div");
         div.id = "empty-state";
-        div.className = "text-center py-20";
+        div.className = "text-center py-20 bg-white rounded-2";
         div.innerHTML = `
-        
-        `
+        <img src="./images/jobs.png" class="mx-auto mb-5>
+        <h2 class="font-bold text-xl text-[#002c5c]">No jobs available</h2>
+        <p class="text-gray-500 mt-1">Check back soon for new job opportunities</p>
+        `;
+        container.appendChild(div);
     }
 }
 

@@ -47,3 +47,29 @@ rejectFilterBtn.addEventListener('click', function(){
     currentFilter = "rejected" ;
     updateUI();
 });
+// event delegation
+container.addEventListener('click', function(e){
+    const card = e.target.closest(".main-cards");
+    if(!card) return ;
+
+    const id = Number(card.dataset.id);
+    const job = jobs.find(j => j.id === id);
+// for interview-btn
+    if(e.target.closest("#job-card-interview-btn")){
+        job.status = job.status === "interview" ? "all" : "interview";
+        updateUI();
+    }
+    
+// for reject-btn
+    if(e.target.closest("#job-card-reject-btn")){
+        job.status = job.status === "rejected" ? "all" : "rejected";
+        updateUI();
+    }
+    
+// for delete
+    if(e.target.closest("#delete-job")){
+        jobs = jobs.filter(j => j.id !== id);
+        card.remove();
+        updateUI();
+    }
+});

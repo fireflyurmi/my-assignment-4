@@ -11,6 +11,15 @@ const allFilterBtn = document.getElementById("all-filter-btn");
 const interviewFilterBtn = document.getElementById("interview-filter-btn");
 const rejectFilterBtn = document.getElementById("reject-filter-btn");
 
+// main update function
+
+function updateUI(){
+
+    updateDashboard();
+    applyFilter();
+    updateActiveButton();
+}
+
 // for initial active tab is all-tab
 let currentFilter = "all" ;
 
@@ -73,3 +82,51 @@ container.addEventListener('click', function(e){
         updateUI();
     }
 });
+// dashboard update
+function updateDashboard() {
+    let total = jobs.length ;
+    let interview = 0 ;
+    let rejected = 0 ;
+    for(let job of jobs){
+        if(job.status === "interview") interview++ ;
+        if(job.status === "rejected") rejected++ ;
+    }
+    total = totalCount.innerText ;
+    interview = interviewCount.innerText ;
+    rejected = rejectCount.innerText ;
+}
+// apply filter function
+function applyFilter(){
+    let visible = 0 ;
+    for(let job of jobs){
+        if(currentFilter === "all"){
+            job.element.style.display = "block";
+            visible++ ;
+        }else if(job.status === currentFilter){
+           job.element.style.display = "block";
+            visible++ ; 
+        }else{
+            job.element.style.display = "none";
+        }
+    }
+    if(currentFilter === "all"){
+        filterCounts.innerText = `${jobs.length} Jobs`;
+    }else{
+        filterCounts.innerText = `${visible} of ${jobs.length} Jobs`;
+    }
+    handleEmptyState(visible);
+}
+function handleEmptyState(visible){
+    let old = document.getElementById("empty-state");
+    if(old) old.remove ;
+
+    if(visible === 0){
+        const div = document.createElement("div");
+        div.id = "empty-state";
+        div.className = "text-center py-20";
+        div.innerHTML = `
+        
+        `
+    }
+}
+

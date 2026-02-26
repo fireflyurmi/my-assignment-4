@@ -104,10 +104,11 @@ function updateUI(){
 }
 // dashboard update
 function updateDashboard() {
-    let total = jobs.length ;
+    let total = 0 ;
     let interview = 0 ;
     let rejected = 0 ;
     for(let job of jobs){
+        if(job.status === "all") total++ ;
         if(job.status === "interview") interview++ ;
         if(job.status === "rejected") rejected++ ;
     }
@@ -116,35 +117,51 @@ function updateDashboard() {
     rejectCount.innerText = rejected ;
 }
 // apply filter function
-function applyFilter(){
-    let visible = 0 ;
-    for(let job of jobs){
+function applyFilter() {
+    let visible = 0;
+
+    for (let job of jobs) {
+
         const statusEl = job.element.querySelector(".job-status");
+
+        // Status label update
         if (job.status === "interview") {
             statusEl.innerText = "INTERVIEW";
-            statusEl.className ="job-status bg-green-100 text-green-700 text-sm px-3 py-1 rounded-md font-medium";
-        }else if (job.status === "rejected") {
-            statusEl.innerText = "REJECTED";
-            statusEl.className ="job-status bg-red-100 text-red-700 text-sm px-3 py-1 rounded-md font-medium";
-        }else {
-            statusEl.innerText = "APPLIED";
-            statusEl.className ="job-status bg-blue-50 text-[#002c5c] text-sm px-3 py-1 rounded-md font-medium";
+            statusEl.className = "job-status bg-green-100 text-green-700 text-sm px-3 py-1 rounded-md font-medium";
         }
-        if(currentFilter === "all"){
+        else if (job.status === "rejected") {
+            statusEl.innerText = "REJECTED";
+            statusEl.className = "job-status bg-red-100 text-red-700 text-sm px-3 py-1 rounded-md font-medium";
+        }
+        else {
+            statusEl.innerText = "APPLIED";
+            statusEl.className = "job-status bg-blue-50 text-[#002c5c] text-sm px-3 py-1 rounded-md font-medium";
+        }
+
+
+        if (currentFilter === "all" && job.status === "all") {
             job.element.style.display = "block";
-            visible++ ;
-        }else if(job.status === currentFilter){
-           job.element.style.display = "block";
-            visible++ ; 
-        }else{
+            visible++;
+        }
+        else if (currentFilter === "interview" && job.status === "interview") {
+            job.element.style.display = "block";
+            visible++;
+        }
+        else if (currentFilter === "rejected" && job.status === "rejected") {
+            job.element.style.display = "block";
+            visible++;
+        }
+        else {
             job.element.style.display = "none";
         }
     }
-    if(currentFilter === "all"){
-        filterCounts.innerText = `${jobs.length} Jobs`;
-    }else{
-        filterCounts.innerText = `${visible} of ${jobs.length} Jobs`;
-    }
+
+    // filter count
+    filterCounts.innerText =
+        currentFilter === "all"
+            ? `${visible} Jobs`
+            : `${visible} Jobs`;
+
     handleEmptyState(visible);
 }
 function handleEmptyState(visible){
